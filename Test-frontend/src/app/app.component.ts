@@ -1,12 +1,16 @@
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './component/Login/login.component';
+import { RegisterComponent } from './component/Register/register.component';
+import { DashboardComponent } from './component/Dashboard/dashboard.component';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'],
+  imports: [CommonModule, LoginComponent, RegisterComponent, DashboardComponent, RouterModule],
 })
 export class AppComponent {
-  title = 'Test-frontend';
+  currentView: string = 'dashboard'; 
 }

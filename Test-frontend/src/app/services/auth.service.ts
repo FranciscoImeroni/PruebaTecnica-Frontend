@@ -10,22 +10,24 @@ export class AuthService {
   private isAuthenticatedSubject = new BehaviorSubject<boolean>(false);
   isAuthenticated$ = this.isAuthenticatedSubject.asObservable();
   private readonly TOKEN_KEY = 'auth_token';
+  private readonly BASE_URL = 'http://localhost:3000';
+
 
   constructor(private http: HttpClient, private router: Router) {}
 
   register(userData: { email: string; password: string }) {
-    return this.http.post('/api/register', userData);
+    return this.http.post(`${this.BASE_URL}/register`, userData);
   }
-
+  
   login(credentials: { email: string; password: string }) {
-    return this.http.post<{ token: string }>('/api/login', credentials).subscribe(
+    return this.http.post<{ token: string }>(`${this.BASE_URL}/login`, credentials).subscribe(
       (response) => {
         localStorage.setItem(this.TOKEN_KEY, response.token);
         this.isAuthenticatedSubject.next(true);
         this.router.navigate(['/dashboard']);
       }
     );
-  }
+  }  
 
   logout() {
     localStorage.removeItem(this.TOKEN_KEY);
