@@ -1,0 +1,25 @@
+<div class="crear-proyecto">
+    <h1>Crear Proyecto</h1>
+    <form (ngSubmit)="crearProyecto()">
+      <div>
+        <label for="nombre">Nombre del Proyecto:</label>
+        <input id="nombre" [(ngModel)]="nombre" name="nombre" required />
+      </div>
+      <div>
+        <label for="descripcion">Descripción:</label>
+        <textarea id="descripcion" [(ngModel)]="descripcion" name="descripcion" required></textarea>
+      </div>
+      <div>
+        <label for="usuarios">Usuarios:</label>
+        <input
+          id="usuarios"
+          [(ngModel)]="usuarios"
+          name="usuarios"
+          placeholder="Usuario 1, Usuario 2, ..."
+          (ngModelChange)="usuarios = $event.split(',').map((user) => user.trim())"
+        />
+      </div>
+      <button type="submit" [disabled]="!nombre || !descripcion">Crear Proyecto</button>
+    </form>
+  </div>
+  

@@ -1,11 +1,12 @@
 import axios from 'axios';
+import axiosInstance from '../../interceptor/axiosInstance';
 
 const API_URL = 'http://localhost:3000/auth'; 
 
 class AuthService {
   async register(username: string, password: string) {
     try {
-      const response = await axios.post(`${API_URL}/register`, { username, password });
+      const response = await axiosInstance.post(`/auth/register`, { username, password });
       return response.data;
     } catch (error) {
       console.error('Error durante el registro:', error);
@@ -15,7 +16,7 @@ class AuthService {
 
   async login(email: string, password: string) {
     try {
-      const response = await axios.post(`${API_URL}/login`, { email, password });
+      const response = await axiosInstance.post(`/auth/login`, { email, password });
       if (response.data.access_token) {
         localStorage.setItem('access_token', response.data.access_token);
     }

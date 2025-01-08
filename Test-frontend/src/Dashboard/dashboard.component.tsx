@@ -1,24 +1,38 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './dashboard.css'; 
 
 const Dashboard = () => {
   const navigate = useNavigate();
 
+ 
   useEffect(() => {
-    const token = localStorage.getItem('jwtToken');
+    const token = localStorage.getItem('access_token');
     if (!token) {
-      navigate('/login'); // Redirigir si no está autenticado
+      navigate('/'); 
     }
   }, [navigate]);
 
   return (
     <div className="dashboard-container">
       <h1>Bienvenido al Dashboard</h1>
-      <p>Contenido exclusivo para usuarios autenticados.</p>
+      <p>Decide qué gestionar:</p>
+      <div className="buttons-container">
+        <button
+          onClick={() => navigate('/proyectos')} 
+        >
+          Gestionar Proyectos
+        </button>
+        <button
+          onClick={() => navigate('/tasks')} 
+        >
+          Gestionar Tareas
+        </button>
+      </div>
       <button
         onClick={() => {
-          localStorage.removeItem('jwtToken'); // Elimina el token
-          navigate('/login'); // Redirige al login
+          localStorage.removeItem('access_token'); 
+          navigate('/'); 
         }}
       >
         Cerrar sesión
